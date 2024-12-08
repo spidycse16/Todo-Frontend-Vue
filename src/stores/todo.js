@@ -1,3 +1,4 @@
+// In your Pinia store (todo.js)
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { useAuthStore } from './auth'; // Import the auth store
@@ -17,7 +18,7 @@ export const useTodoStore = defineStore('todo', {
         delete axios.defaults.headers.common['Authorization'];
       }
     },
-    
+
     // Fetch todos with authorization
     async fetchTodos() {
       this.setAuthorizationHeader();  // Ensure the token is set in the header
@@ -35,7 +36,7 @@ export const useTodoStore = defineStore('todo', {
       this.setAuthorizationHeader();  // Ensure the token is set in the header
 
       try {
-        const response = await axios.post('/todos', todo);
+        const response = await axios.post('/todos', { ...todo, status: 'pending' });
         this.todos.push(response.data);
       } catch (error) {
         console.error('Error adding todo:', error.response?.data || error);

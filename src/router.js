@@ -3,6 +3,8 @@ import LoginView from "./components/LoginView.vue";
 import TheWelcome from "./components/TheWelcome.vue";
 import RegisterView from "./components/RegisterView.vue";
 import TodoPage from "./components/TodoPage.vue";
+import AddTodo from "./components/AddTodo.vue";
+import EditTodo from "./components/EditTodo.vue";
 import { useAuthStore } from './stores/auth';  // Assuming you're using Pinia for state management
 
 const routes = [
@@ -27,7 +29,18 @@ const routes = [
         //         next();  // Proceed to the Todo page if authenticated
         //     }
         // }
-    }
+    },
+    { path: "/add-todo",
+        name : 'add-todo',
+         component: AddTodo},
+
+         { 
+            path: '/edit-todo/:id', 
+            name: 'edit-todo', 
+            component: EditTodo, 
+            props: true, 
+          },
+    
 ];
 
 const router = createRouter({
