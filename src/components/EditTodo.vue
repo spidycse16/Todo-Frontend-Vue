@@ -42,7 +42,6 @@
         description: '',
       });
   
-      // Fetch the specific todo based on the ID from the URL params
       const fetchTodo = async () => {
         const todoId = route.params.id;
         const existingTodo = todoStore.todos.find((todo) => todo.id === parseInt(todoId));
@@ -50,25 +49,24 @@
           todo.value = { ...existingTodo };
         } else {
           console.error('Todo not found');
-          router.push('/'); // Redirect to home if todo is not found
+          router.push('/todo'); 
         }
       };
   
-      // Call fetchTodo when the component is mounted
       onMounted(fetchTodo);
   
-      // Update the todo item
+
       const updateTodo = async () => {
         if (todo.value.title.trim() && todo.value.description.trim()) {
           const todoId = route.params.id;
           await todoStore.updateTodo(todoId, todo.value);
-          router.push('/todo'); // Redirect to the todo list after update
+          router.push('/todo');
         }
       };
   
-      // Cancel editing and navigate back to Todo list
+  
       const cancelEdit = () => {
-        router.push('/todo'); // Redirect to the todo list
+        router.push('/todo');
       };
   
       return {
@@ -81,28 +79,98 @@
   </script>
   
   <style scoped>
-  form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
+
+div {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+input,
+textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+
+button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button[type='button'] {
+  background-color: #6c757d;
+}
+
+button[type='button']:hover {
+  background-color: #5a6268;
+}
+
+
+@media (max-width: 480px) {
   div {
-    margin-bottom: 10px;
+    margin: 20px;
+    padding: 15px;
   }
-  
-  label {
-    display: block;
+
+  h2 {
+    font-size: 20px;
   }
-  
+
   input,
   textarea {
-    width: 100%;
+    font-size: 12px;
     padding: 8px;
-    margin-top: 5px;
   }
-  
+
   button {
-    margin-top: 10px;
+    font-size: 14px;
+    padding: 8px 12px;
   }
-  </style>
-  
+}
+</style>

@@ -1,27 +1,26 @@
-// In your Pinia store (todo.js)
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { useAuthStore } from './auth'; // Import the auth store
+import { useAuthStore } from './auth'; 
 
 export const useTodoStore = defineStore('todo', {
   state: () => ({
     todos: [],
   }),
   actions: {
-    // Function to set Authorization header with token
+
     setAuthorizationHeader() {
       const authStore = useAuthStore();
       if (authStore.token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${authStore.token}`;
       } else {
-        // Handle case if token is not available
+    
         delete axios.defaults.headers.common['Authorization'];
       }
     },
 
-    // Fetch todos with authorization
+
     async fetchTodos() {
-      this.setAuthorizationHeader();  // Ensure the token is set in the header
+      this.setAuthorizationHeader(); 
 
       try {
         const response = await axios.get('/todos');
@@ -31,9 +30,9 @@ export const useTodoStore = defineStore('todo', {
       }
     },
 
-    // Add a new todo with authorization
+
     async addTodo(todo) {
-      this.setAuthorizationHeader();  // Ensure the token is set in the header
+      this.setAuthorizationHeader();  
 
       try {
         const response = await axios.post('/todos', { ...todo, status: 'pending' });
@@ -43,9 +42,9 @@ export const useTodoStore = defineStore('todo', {
       }
     },
 
-    // Update a todo with authorization
+
     async updateTodo(id, updatedTodo) {
-      this.setAuthorizationHeader();  // Ensure the token is set in the header
+      this.setAuthorizationHeader(); 
 
       try {
         await axios.put(`/todos/${id}`, updatedTodo);
@@ -56,9 +55,9 @@ export const useTodoStore = defineStore('todo', {
       }
     },
 
-    // Delete a todo with authorization
+  
     async deleteTodo(id) {
-      this.setAuthorizationHeader();  // Ensure the token is set in the header
+      this.setAuthorizationHeader(); 
 
       try {
         await axios.delete(`/todos/${id}`);

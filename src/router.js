@@ -5,7 +5,7 @@ import RegisterView from "./components/RegisterView.vue";
 import TodoPage from "./components/TodoPage.vue";
 import AddTodo from "./components/AddTodo.vue";
 import EditTodo from "./components/EditTodo.vue";
-import { useAuthStore } from './stores/auth';  // Assuming you're using Pinia for state management
+import { useAuthStore } from './stores/auth'; 
 
 const routes = [
     { path: '/', component: TheWelcome },
@@ -20,15 +20,6 @@ const routes = [
         path: '/todo',
         name: 'todo',
         component: TodoPage,
-        // Adding a navigation guard for auth
-        // beforeEnter: (to, from, next) => {
-        //     const authStore = useAuthStore();
-        //     if (!authStore.isAuthenticated) {  // Assuming you have isAuthenticated in your store
-        //         next('/login');  // Redirect to login if not authenticated
-        //     } else {
-        //         next();  // Proceed to the Todo page if authenticated
-        //     }
-        // }
     },
     { path: "/add-todo",
         name : 'add-todo',
